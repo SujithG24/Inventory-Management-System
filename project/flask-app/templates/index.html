@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block title %}Home - Inventory Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Welcome to Inventory Management</h2>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 30px;">
+    <div class="card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Products</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Manage your product catalog</p>
+        <a href="{{ url_for('products') }}" class="btn btn-secondary">View Products</a>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Locations</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Manage warehouse locations</p>
+        <a href="{{ url_for('locations') }}" class="btn btn-secondary">View Locations</a>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Movements</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">Track product movements</p>
+        <a href="{{ url_for('movements') }}" class="btn btn-secondary">View Movements</a>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white;">
+        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">Balance Report</h3>
+        <p style="margin-bottom: 20px; opacity: 0.9;">View inventory balances</p>
+        <a href="{{ url_for('report') }}" class="btn btn-secondary">View Report</a>
+    </div>
+</div>
+
+
+{% endblock %}

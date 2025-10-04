@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Balance Report - Inventory Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>Inventory Balance Report</h2>
+</div>
+
+<div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+    <h3 style="font-size: 1.3rem; margin-bottom: 10px;">Product Balance by Location</h3>
+    <p style="opacity: 0.9;">This report shows the current quantity of each product in each warehouse location.</p>
+</div>
+
+{% if balances %}
+<table>
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Warehouse</th>
+            <th style="text-align: center;">Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for balance in balances %}
+        <tr>
+            <td>
+                <strong>{{ balance['product_name'] }}</strong>
+                <br>
+                <small style="color: #6c757d;">{{ balance['product_id'] }}</small>
+            </td>
+            <td>
+                <strong>{{ balance['location_name'] }}</strong>
+                <br>
+                <small style="color: #6c757d;">{{ balance['location_id'] }}</small>
+            </td>
+            <td style="text-align: center;">
+                <span style="font-size: 1.3rem; font-weight: 700;
+                      {% if balance['balance'] > 0 %}color: #28a745;
+                      {% elif balance['balance'] < 0 %}color: #dc3545;
+                      {% else %}color: #6c757d;{% endif %}">
+                    {{ balance['balance'] }}
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div style="margin-top: 24px; padding: 20px; background: #f8f9fa; border-radius: 8px; border-left: 4px solid #667eea;">
+    <h4 style="margin-bottom: 10px; color: #212529;">Legend</h4>
+    <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+        <div>
+            <span style="color: #28a745; font-weight: 700; font-size: 1.2rem;">Green</span>
+            <span style="color: #6c757d;"> - Positive balance (stock available)</span>
+        </div>
+        <div>
+            <span style="color: #6c757d; font-weight: 700; font-size: 1.2rem;">Gray</span>
+            <span style="color: #6c757d;"> - Zero balance (no stock)</span>
+        </div>
+        <div>
+            <span style="color: #dc3545; font-weight: 700; font-size: 1.2rem;">Red</span>
+            <span style="color: #6c757d;"> - Negative balance (over-allocated)</span>
+        </div>
+    </div>
+</div>
+{% else %}
+<div class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+    <h3>No Data Available</h3>
+    <p>Add products, locations, and movements to see the balance report</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="{{ url_for('products') }}" class="btn btn-primary">Manage Products</a>
+        <a href="{{ url_for('locations') }}" class="btn btn-primary">Manage Locations</a>
+        <a href="{{ url_for('movements') }}" class="btn btn-primary">Add Movements</a>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

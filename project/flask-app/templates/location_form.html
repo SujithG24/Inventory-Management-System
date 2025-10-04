@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{{ action }} Location - Inventory Management{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h2>{{ action }} Location</h2>
+</div>
+
+<div class="card">
+    <form method="POST">
+        <div class="form-group">
+            <label for="location_id">Location ID *</label>
+            <input type="text" id="location_id" name="location_id"
+                   value="{{ location['location_id'] if location else '' }}"
+                   required
+                   {% if location %}readonly style="background: #e9ecef;"{% endif %}>
+            <small style="color: #6c757d; display: block; margin-top: 5px;">Unique identifier for the location (e.g., WH-001)</small>
+        </div>
+
+        <div class="form-group">
+            <label for="name">Location Name *</label>
+            <input type="text" id="name" name="name"
+                   value="{{ location['name'] if location else '' }}"
+                   required>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address</label>
+            <textarea id="address" name="address">{{ location['address'] if location else '' }}</textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">{{ action }} Location</button>
+            <a href="{{ url_for('locations') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
